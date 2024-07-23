@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "mailing-bot"
+version = "0.1.0"
+description = "Bot to send mails from A to B"
+authors = ["Sebastian Blum <sebast.blum@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+ruff = "^0.5.4"
+coverage = "^7.6.0"
+pytest = "^8.3.1"
+
+[tool.poetry.scripts]
+mailingbot = "src.main:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+lint.select = ["E", "F", "W", "C", "N", "Q"]
+lint.ignore = ["E501"]  # ignore line length for example
+line-length = 88
