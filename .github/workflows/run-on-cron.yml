@@ -9,7 +9,6 @@ on:
 jobs:
   run-mailingbot:
     runs-on: ubuntu-latest
-
     steps:
       - 
         name: Checkout code
@@ -20,8 +19,10 @@ jobs:
       - 
         name: Run MailingBot Docker Container
         run: |
+          echo "Running from $(pwd)"
           docker pull seblum/mailingbot:latest
-          docker run --rm seblum/mailingbot:latest
+          docker run --rm --volume $(pwd)/src/data/:/src/data/ \
+          seblum/mailingbot:latest
         env:
           EMAIL_SENDER: ${{ secrets.EMAIL_SENDER }}
           EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
