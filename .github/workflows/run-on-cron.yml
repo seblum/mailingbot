@@ -4,6 +4,7 @@ name: Run MailingBot on Schedule
 on:
   schedule:
     - cron: "*/5 * * * *"
+  workflow_dispatch:
 
 jobs:
   run-mailingbot:
@@ -20,13 +21,13 @@ jobs:
         name: Run MailingBot Docker Container
         run: |
           docker pull seblum/mailingbot:latest
-          docker run --rm \
-            -e EMAIL_SENDER="${{ secrets.EMAIL_SENDER }}" \
-            -e EMAIL_PASSWORD="${{ secrets.EMAIL_PASSWORD }}" \
-            -e EMAIL_RECEIVER="${{ secrets.EMAIL_RECEIVER }}" \
-            -e HTML_PATH="${{ secrets.HTML_PATH }}" \
-            seblum/mailingbot:latest
+          docker run --rm seblum/mailingbot:latest
         env:
-          API_KEY: ${{ secrets.API_KEY }}
-          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
-          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          EMAIL_SENDER: ${{ secrets.EMAIL_SENDER }}
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+          EMAIL_RECEIVER: ${{ secrets.EMAIL_RECEIVER }}
+          HTML_PATH: ${{ secrets.HTML_PATH }}
+            # -e EMAIL_SENDER="${{ secrets.EMAIL_SENDER }}" \
+            # -e EMAIL_PASSWORD="${{ secrets.EMAIL_PASSWORD }}" \
+            # -e EMAIL_RECEIVER="${{ secrets.EMAIL_RECEIVER }}" \
+            # -e HTML_PATH="${{ secrets.HTML_PATH }}" \
