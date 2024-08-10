@@ -1,0 +1,32 @@
+name: Run MailingBot on Schedule
+
+# This workflow runs on a schedule (every day at midnight UTC in this example)
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+
+jobs:
+  run-mailingbot:
+    runs-on: ubuntu-latest
+
+    steps:
+      - 
+        name: Checkout code
+        uses: actions/checkout@v4
+      - 
+        name: Set up Docker
+        uses: docker/setup-buildx-action@v2
+      - 
+        name: Run MailingBot Docker Container
+        run: |
+          docker pull seblum/mailingbot:latest
+          docker run --rm \
+            -e EMAIL_SENDER="${{ secrets.EMAIL_SENDER }}" \
+            -e EMAIL_PASSWORD="${{ secrets.EMAIL_PASSWORD }}" \
+            -e EMAIL_RECEIVER="${{ secrets.EMAIL_RECEIVER }}" \
+            -e HTML_PATH="${{ secrets.HTML_PATH }}" \
+            seblum/mailingbot:latest
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
