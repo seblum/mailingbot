@@ -20,7 +20,7 @@ jobs:
         name: Run MailingBot Docker Container
         run: |
           docker pull seblum/mailingbot:latest
-          docker run -it --volume $(pwd)/src/data/:/src/data/ \
+          docker run -rm --volume $(pwd)/src/data/:/src/data/ \
           -e EMAIL_SENDER="${{ secrets.EMAIL_SENDER }}" \
           -e EMAIL_PASSWORD="${{ secrets.EMAIL_PASSWORD }}" \
           -e EMAIL_RECEIVER="${{ secrets.EMAIL_RECEIVER }}" \
