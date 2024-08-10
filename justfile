@@ -31,7 +31,7 @@ docker-run:
     poetry_version=$(poetry version | awk '{print $2}')
     docker run -it --env-file .env \
     --volume $(pwd)/src/data/:/src/data/ \
-    mailingbot:$(poetry version | awk '{print $2}')
+    seblum/mailingbot:latest
 
 # Build and run Docker container
 docker-full:
